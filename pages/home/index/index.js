@@ -59,8 +59,8 @@ Page({
             item.sku = item.sku.map(sku=>{
               sku.price = util.floar(sku.price)
               sku.chalk_line_price = util.floar(sku.chalk_line_price)
-              console.log("skuprice:"+sku.price)
-              console.log("skuchalk:"+sku.chalk_line_price)
+              //console.log("skuprice:"+sku.price)
+              //console.log("skuchalk:"+sku.chalk_line_price)
               return sku
             })
             item.sku.forEach(console.log)
@@ -97,7 +97,14 @@ Page({
   {
     let id = e.currentTarget.dataset.id
   },
-
+  /**
+   * 上拉加载更多
+   */
+  onReachBottom:function()
+  {
+    this.setData({showGeMoreLoadin:true})
+    this.getGoods()
+  },
   getAuthUserInfo:function(data)
   {
     this.setData({showAuth:false})
