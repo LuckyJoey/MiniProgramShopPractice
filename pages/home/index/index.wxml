@@ -1,0 +1,73 @@
+<view class="home-container">
+  <view class="content">
+    <!--搜索框-->
+    <view class="search-container">
+      <view class="search">
+        <input type='text' 
+              class='serach-input'
+              placeholder='搜索商品' 
+              bindinput='getFilter'/>
+        <view class='search-image' bindtap='search'>
+          <image mode="" src="/images/search.png"></image>
+        </view>       
+      </view>
+    </view>
+    <!--轮播图-->
+    <view class = 'swiper'>
+      <swiper indicator-dots='true'
+              indicator-color='#fff'
+              indicator-active-color='#66cdaa'
+              autoplay='true'
+              inrerval = '3000'
+              circular = 'true'
+              duration = '1500'
+              class='image-container'
+              >
+            <block wx:for="{{attachments}}" wx:key="{{item}}">
+              <swiper-item class="image-item">
+                <image class="goods-image" src="{{item}}" mode="aspectFill" ></image>
+              </swiper-item>
+            </block>  
+      </swiper>
+    </view>
+    <!--商品列表-->
+    <view class='goods-container'>
+      <view class='goods-content-title'>
+        为您推荐
+      </view>
+      <view class='goods-content'>
+        <view class='goods-item'
+              wx:for='{{goodsList}}'
+              wx:key='{{item.id}}'
+              data-id='{{item.id}}'
+              bindtap='openGoodsDetail'
+              >
+          <view class='item-image'>
+            <image mode='aspectFill' src='{{item.images_attachments[0]}}'></image>
+          </view>   
+
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+ <!--授权窗口-->
+  <!-- Authorize pop -->
+  <view wx:if="{{showAuth}}" class='auth-container'>
+    <view class='auth-wall'>
+      <view class='auth-tips'>
+        <image src='/images/wechat-logo.png'></image>
+        <view>Authorize your public information (nicknames and avatars)</view>
+      </view>
+      <button open-type="getUserInfo" 
+              bindgetuserinfo="getAuthUserInfo" 
+              class='auth-button'>
+        <view>Authorize login</view>
+      </button>
+    </view>
+  </view>
+
+  <get-more-loading wx:if="{{showGeMoreLoading}}"></get-more-loading>
+  <not-more wx:if="{{notDataTips && goodsList.length>0}}"></not-more>
+</view>
